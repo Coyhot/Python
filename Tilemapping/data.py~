@@ -1,0 +1,42 @@
+#-*-coding:utf-8 -*-
+
+"""
+Tilemapping data file
+Contains all the data that the main file needs to perform the tilemapping
+Created by coyhot
+19/07/12 - */*/*
+"""
+tilesetPath = "files/tileset2.png"
+tileHeight,tileWidth = 16,16 #Size of the tiles
+xTiles,yTiles = 15,15 #Size of the level
+windowHeight, windowWidth = tileHeight*xTiles,tileWidth*yTiles #*PROVISOIR* Window size from tiles
+tilesetWidth,tilesetHeight = 43,25 #Number of tiles in the tileset
+tileEspacement = 2 #The space in pixel between tiles
+world = [
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],
+[],] #Level representation 
+
+tiles = [] #RECTS array
+"""
+RECTS creation for blitting
+"""
+for row in range(tilesetHeight):
+    tiles.append([])
+    for tile in range(tilesetWidth):
+        tiles[row].append(((tileEspacement*(tile+1)+tileWidth*tile,tileEspacement*(row+1)+tileHeight*row),(tileEspacement*(tile+1)+tileWidth*tile+tileWidth,tileEspacement*(row+1)+tileHeight*row+tileHeight)))
+
+
+

@@ -1,0 +1,16 @@
+Maybe this will be merged to a lib once finished.
+
+Done:
+Supporting 2d tileset
+-can handle different height width for the tiles and different espacement values
+
+-* TODO *-
+High priority : 
+LEVEL EDITOR
+-This is the next thing that i'm going to do
+PROPERTIES
+-Each tile has different properties
+-Coming with the level editor, wich will be able to modify these.
+
+Then:
+Scrolling handling and a lot of *not so* exciting features.

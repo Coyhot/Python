@@ -1,0 +1,28 @@
+import pygame,os
+from pygame.locals import *
+from editorData import *
+from data import *
+tileWindow = pygame.display.set_mode((windowHeight,windowWidth))
+tileset = pygame.image.load(tilesetPath).convert()
+world = Level(xTiles,yTiles,tileset,7)
+isdown = False
+while 1 :
+    world.display(tileWindow)
+    for event in pygame.event.get():
+
+        if event.type == MOUSEBUTTONDOWN:
+            isdown = True
+            world.setTile((event.pos[1]//tileWidth),(event.pos[0]//tileHeight),actualTile)
+            world.display(tileWindow)
+        if event.type == MOUSEBUTTONUP:
+            isdown = False
+        if event.type == MOUSEMOTION and isdown == True:
+            world.setTile((event.pos[1]//tileWidth),(event.pos[0]//tileHeight),actualTile)
+            world.display(tileWindow)
+            
+            
+        
+        if event.type == QUIT:
+            pygame.quit()
+        
+    pygame.display.flip()

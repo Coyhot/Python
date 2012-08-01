@@ -10,7 +10,7 @@ tilesetPath = "files/tileset2.png"
 tileHeight,tileWidth = 16,16 #Size of the tiles
 xTiles,yTiles = 15,15 #Size of the level
 windowHeight, windowWidth = tileHeight*xTiles,tileWidth*yTiles #*PROVISOIR* Window size from tiles
-tilesetWidth,tilesetHeight = 42,24 #Number of tiles in the tileset
+tilesetWidth,tilesetHeight = 43,25 #Number of tiles in the tileset
 tileEspacement = 2 #The space in pixel between tiles
 
 

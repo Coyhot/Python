@@ -6,9 +6,9 @@ size = random.randint(1,50)
 x,y = 0,300
 particles = ParticleContainer()
 speed = random.random()/10
-nb = 3
+nb = 50
 angle = random.randint(0,360)
-particles.gen_particles((10,50),nb,speed,angle)
+particles.gen_particles((1,5),nb,speed,angle)
 selectedParticle = None
 dragging = False
 creating = False
@@ -22,15 +22,15 @@ while 1:
         for p2 in particles.getParticles()[i+1:]:
             #particles.collide(p1,p2,screen)
             pass
-            
+    particles.attract()
     for event in pygame.event.get():
         if event.type == MOUSEBUTTONDOWN and event.button == 2:
             creating = True
-            particles.new((10,50),nb,speed,angle,(event.pos[0],event.pos[1]))
+            particles.new((1,5),nb,speed,angle,(event.pos[0],event.pos[1]))
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 3:
                 particles.empty()
-                particles.gen_particles((10,50),nb,speed,angle)
+                particles.gen_particles((1,5),nb,speed,angle)
             if event.button == 1:
                 mouseX, mouseY = event.pos[0], event.pos[1]
                 selectedParticle = particles.findParticle(mouseX,mouseY)
@@ -39,7 +39,7 @@ while 1:
                     selectedParticle.x,selectedParticle.y = mouseX,mouseY
         if event.type == MOUSEMOTION and creating == True:
             particles.check()
-            particles.new((10,50),nb,speed,angle,(event.pos[0],event.pos[1]))
+            particles.new((1,5),nb,speed,angle,(event.pos[0],event.pos[1]))
         if event.type == MOUSEMOTION and dragging == True:
             dx,dy = event.pos[0] - selectedParticle.x, event.pos[1] - selectedParticle.y
             selectedParticle.x,selectedParticle.y = event.pos[0],event.pos[1]

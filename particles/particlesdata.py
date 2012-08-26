@@ -5,8 +5,8 @@ import os
 from math import *
 import random
 import sys
-gravity = (180,0.002)
-elasticity = 0.80
+gravity = (180,0.00)
+elasticity = 1.0
 airMass = 0.1
 def addVectors((angle1, length1), (angle2, length2)):
     x  = sin(radians(angle1)) * length1 + sin(radians(angle2)) * length2
@@ -54,6 +54,16 @@ class ParticleContainer:
             particle.bounce()
     def empty(self):
         self.particles = []
+    def attract(self):
+        for p1 in self.particles:
+            for p2 in self.particles:
+                if p1 != p2:
+                    dx,dy = p1.x - p2.x , p1.y-p2.y
+                    distance = hypot(dx,dy)
+                    force = 0.001*(1/distance*distance)
+                    angle = degrees(atan2(dy,dx))+270
+                    p1.angle,p1.speed = addVectors((p1.angle,p1.speed),(angle,force))
+            p1.move()
     def collide(self,p1,p2,screen):
         dx,dy = p1.x-p2.x, p1.y-p2.y
         distance = hypot(dx,dy)
@@ -92,7 +102,7 @@ class Particle:
         self.angle = 0
         self.mass = random.random()
         self.colour = (self.mass*255,0,(255-(self.mass*255)),100)
-        self.drag = 0.999
+        self.drag = 1
     def setSpeed(self,movement):
         self.speed = movement
         

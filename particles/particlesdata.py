@@ -5,9 +5,10 @@ import os
 from math import *
 import random
 import sys
-gravity = (180,0.00)
+gravity = (180,0.0)
 elasticity = 1.0
 airMass = 0.1
+G = 50
 def addVectors((angle1, length1), (angle2, length2)):
     x  = sin(radians(angle1)) * length1 + sin(radians(angle2)) * length2
     y  = cos(radians(angle1)) * length1 + cos(radians(angle2)) * length2
@@ -21,16 +22,13 @@ class ParticleContainer:
     def new(self,(minsize,maxsize),nb,speed,angle,(x,y)):
             size = random.randint(minsize,maxsize)
             self.particles.append(Particle((x,y),size,))
-            self.particles[len(self.particles)-1].setSpeed(random.random()*2)
-            self.particles[len(self.particles)-1].setAngle(random.randint(0,360))
+            
     def gen_particles(self,(minsize,maxsize),nb,speed,angle):
         for i in range(nb):
             size = random.randint(minsize,maxsize)
             x,y = random.randint(0,600),random.randint(0,600)
             
             self.particles.append(Particle((x,y),size,))
-            self.particles[i].setSpeed(random.random()*2)
-            self.particles[i].setAngle(random.randint(0,360))
     def display(self,i):
         self.particles[i].display()
     def move(self, i):
@@ -54,15 +52,21 @@ class ParticleContainer:
             particle.bounce()
     def empty(self):
         self.particles = []
+    def clean(self):
+        for p in self.particles:
+            if p.clean() == True:
+                self.particles.remove(p)
     def attract(self):
         for p1 in self.particles:
             for p2 in self.particles:
                 if p1 != p2:
                     dx,dy = p1.x - p2.x , p1.y-p2.y
                     distance = hypot(dx,dy)
-                    force = 0.001*(1/distance*distance)
+                    force = ((1/((distance)*(distance)))/G)*p2.size*p2.size
                     angle = degrees(atan2(dy,dx))+270
                     p1.angle,p1.speed = addVectors((p1.angle,p1.speed),(angle,force))
+                    if p2.size != 0 and p1.size != 0 and p1.size + p2.size > distance:
+                        p1.merge(p2)
             p1.move()
     def collide(self,p1,p2,screen):
         dx,dy = p1.x-p2.x, p1.y-p2.y
@@ -103,11 +107,26 @@ class Particle:
         self.mass = random.random()
         self.colour = (self.mass*255,0,(255-(self.mass*255)),100)
         self.drag = 1
+    def clean(self):
+        if self.size == 0:
+            return True
     def setSpeed(self,movement):
         self.speed = movement
         
     def setAngle(self,angle):
         self.angle = angle
+    def merge(self,p2):
+        if self.size > 0 and p2.size > 0:
+            if self.size > p2.size:
+                self.size += 1
+                p2.size -= 1
+            if self.size <= p2.size:
+                p2.size += 1
+                self.size -= 1
+
+        
+
+
     def move(self):
         self.x += sin(radians(self.angle)) * self.speed
         self.y -= cos(radians(self.angle)) * self.speed
@@ -132,7 +151,9 @@ class Particle:
             self.speed *= elasticity
             
     def display(self,screen):
-        pygame.draw.circle(screen,self.colour,(int(self.x), int(self.y)), self.size, self.thickness)
+        if self.size >0:
+            
+            pygame.draw.circle(screen,self.colour,(int(self.x), int(self.y)), int(self.size), self.thickness)
     def verify(self):
         if self.size > 100:
             return 1

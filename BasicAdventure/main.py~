@@ -5,12 +5,20 @@ D = pygame.display.set_mode((640,480))
 from data import *
 from math import *
 baseTileset = Tileset("files/tileset.png",32,(10,8))
-lightGreyFloor = LightGreyFloor((5,0),baseTileset)
-levelrepr1 = [[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
-[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
-[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
-[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
-[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor]]
+lightGreyFloor = LightGreyFloor(baseTileset)
+lightGreyFloor2 = LightGreyFloor2(baseTileset)
+straightUpRoad=StraightUpRoad(baseTileset)
+staightSideRoad=StaightSideRoad(baseTileset)
+turnUpLeftRoad=TurnUpLeftRoad(baseTileset)
+turnUpRightRoad=TurnUpRightRoad(baseTileset)
+turnDownLeftRoad=TurnDownLeftRoad(baseTileset)
+turnDownRightRoad=TurnDownRightRoad(baseTileset)
+
+levelrepr1 = [[turnUpLeftRoad,lightGreyFloor,lightGreyFloor,lightGreyFloor2,turnUpRightRoad],
+[lightGreyFloor,lightGreyFloor2,lightGreyFloor,lightGreyFloor2,lightGreyFloor],
+[lightGreyFloor2,lightGreyFloor,lightGreyFloor,lightGreyFloor2,lightGreyFloor2],
+[lightGreyFloor,lightGreyFloor2,lightGreyFloor2,lightGreyFloor,lightGreyFloor],
+[turnDownLeftRoad,lightGreyFloor,lightGreyFloor2,lightGreyFloor,turnDownRightRoad]]
 
 level1 = Level("level1",(5,5))
 level1.setLevel(levelrepr1)

@@ -50,22 +50,44 @@ class Level:
 TILES !
 """
 
-class Tile:
-    def __init__(self,(y,x),tileset):
-        self.xPosInTileset = x
-        self.yPosInTileset = y
-        self.tileset = tileset
 
-class GroundTile(Tile):
-    def __init__(self,(y,x),tileset):
-        Tile.__init__(self,(x,y),tileset)
 
-class LightGreyFloor:
+class GroundTile():
     def __init__(self,(y,x),tileset):
         self.tileset = tileset
         self.xPosInTileset = x
         self.yPosInTileset = y
         self.rect = self.tileset.getRect(self.yPosInTileset,self.xPosInTileset)
+
+class LightGreyFloor(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(5,0),tileset)
+        
+        
+class LightGreyFloor2(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(6,0),tileset)
+
+class StraightUpRoad(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(1,4),tileset)
+
+class StaightSideRoad(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(2,1),tileset)
+
+class TurnUpLeftRoad(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(1,2),tileset)
+class TurnUpRightRoad(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(1,3),tileset)
+class TurnDownLeftRoad(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(2,2),tileset)
+class TurnDownRightRoad(GroundTile):
+    def __init__(self,tileset):
+        GroundTile.__init__(self,(2,3),tileset)
 """
 Levels !
 """

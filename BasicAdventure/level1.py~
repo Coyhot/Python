@@ -1,0 +1,6 @@
+from tiles import *
+level1 = [[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
+[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
+[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
+[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor],
+[lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor,lightGreyFloor]]
